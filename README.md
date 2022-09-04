@@ -4,7 +4,7 @@
 <br>
 <div align="center">
 
-# Entre Dev #3: Kubernetes
+# Formation Kubernetes
 
 </div>
 
@@ -12,21 +12,17 @@
 
 La conteneurisation dans un contexte d'architecture distribuée a plusieurs avantages mais impose plusieurs contraintes. Un système d'orchestration de conteneur nous permet de gérer les problématiques posées par de tels systèmes.
 
-Au cours de cet EntreDev, nous découvrirons l'orchestrateur de conteneurs : **Kubernetes**.
+Au cours de cette formation, nous découvrirons l'orchestrateur de conteneurs : **Kubernetes**.
 
 # Les élément de la présentation
 
-## Video Replay
-
-Vous trouvez le lien du replay sur ce [lien](https://novenciagroupe.sharepoint.com/sites/SkillCenterLentredev/Documents%20partages/General/Recordings/R%C3%A9union%20dans%20%C2%AB%C2%A0G%C3%A9n%C3%A9ral%C2%A0%C2%BB-20220331_183516-Meeting%20Recording.mp4?web=1)
-
 ## Slides
 
-Retrouvez les slides ici [EntreDev3-Kubernetes.pptx](./EntreDev3-Kubernetes.pptx)
+Retrouvez les slides ici []()
 
 ## Le code
 
-3 dossiers sont présents et sont définis comme suit:
+2 dossiers sont présents et sont définis comme suit:
 
 - `cluster-setup` : Contient les fichiers Terraform nécessaire pour créer le cluster utilisé au cours du workshop sur Azure. Sous ce dossier il y a ce qui suit:
   - `terraform` : Dossier contenant les fichiers .tf
@@ -35,14 +31,6 @@ Retrouvez les slides ici [EntreDev3-Kubernetes.pptx](./EntreDev3-Kubernetes.pptx
   - `functions.sh` : Script contenant les fonctions utilisées par `setup_cluster.sh`
   - `users.txt` : Liste des emails Novencia des participants
 - `manifests` : Contient les manifests yaml à utiliser pour le workshop
-- `setup` : Contient des scripts utilisable par les participants pour installer `kubectl` et les identifiants pour se connecter au cluster. Contient les scripts suivants:
-
-  - `setup.sh` : à utiliser dans un environment **Linux**
-  - `setup_git_bash.sh` : à utiliser dans un environment **Git Bash** sous Windows
-  - `setup.bat` : à utiliser dans un environment **Windows**
-  - `setup.ps1` : à utiliser dans un environment **PowerShell** sous Windows
-
-  > Utilisation: `setup.sh prenom-nom` Exemple: `setup.sh ahmed-moalla`
 
 ## Resources List
 

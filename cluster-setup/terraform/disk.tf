@@ -1,5 +1,5 @@
-resource "azurerm_managed_disk" "entredev-disk" {
-  name     = "entredevdisk"
+resource "azurerm_managed_disk" "formation-k8s-disk" {
+  name     = "formationk8sdisk"
   location = var.location
   # Need to use node resource group not aks resource group
   # Another resource group is created one for infra resources (net, nodes, ...) and another for aks service
@@ -13,5 +13,5 @@ resource "azurerm_managed_disk" "entredev-disk" {
 }
 
 output "disk_id" {
-  value = azurerm_managed_disk.entredev-disk.id
+  value = azurerm_managed_disk.formation-k8s-disk.id
 }

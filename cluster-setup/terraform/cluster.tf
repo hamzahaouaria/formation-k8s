@@ -1,8 +1,8 @@
 resource "azurerm_kubernetes_cluster" "k8s-cluster" {
   name                = "k8s-cluster"
-  location            = azurerm_resource_group.k8s-cluster-entre-dev.location
-  resource_group_name = azurerm_resource_group.k8s-cluster-entre-dev.name
-  dns_prefix          = "k8s-entredev"
+  location            = azurerm_resource_group.formation-k8s-cluster.location
+  resource_group_name = azurerm_resource_group.formation-k8s-cluster.name
+  dns_prefix          = "k8s-formation"
   kubernetes_version  = var.kubernetes_version
 
   default_node_pool {

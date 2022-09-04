@@ -12,8 +12,8 @@ spec:
     - name: mongodb-data # Nom du Volume à référencer en bas dans volumeMounts
       azureDisk: # Définition du Azure Disk distant
         kind: Managed
-        diskName: entredevdisk
-        diskURI: /subscriptions/ce80d183-bf52-4113-8097-6dad78c8fdb0/resourceGroups/MC_k8s-cluster-entre-dev_k8s-cluster_francecentral/providers/Microsoft.Compute/disks/entredevdisk
+        diskName: formationk8sdisk
+        diskURI: /subscriptions/ce80d183-bf52-4113-8097-6dad78c8fdb0/resourceGroups/MC_formation-k8s-cluster_k8s-cluster_francecentral/providers/Microsoft.Compute/disks/formationk8sdisk
   containers:
     - image: mongo:3.6
       name: mongodb
@@ -28,8 +28,8 @@ spec:
 - `kubectl apply -f 1-pod-with-volume.yaml` : Créer le Pod
 - `kubectl exec -it mongo-with-volume -- mongo` : Executer le client `mongo` à l'intérieur du pod
 - `use test;` : Utiliser la base de données par défaut `test`
-- `db.entredev.insert({sujet: 'k8s'})` : Insérer des données dans la collection `entredev`
-- `db.entredev.find({})` : Récupérer tout les éléments de la collection `entredev`
+- `db.formation.insert({sujet: 'k8s'})` : Insérer des données dans la collection `formation`
+- `db.formation.find({})` : Récupérer tout les éléments de la collection `formation`
 - `exit` : Pour sortir de l'invite de commande `mongo`
 - `kubectl delete pod mongo-with-volume` : Supprimer le pod
 - Recréer le pod et refaire les étapes. On remarque que les données ont persisté.
@@ -51,8 +51,8 @@ spec:
     - ReadWriteOnce
   azureDisk: # Définition du Azure Disk distant
     kind: Managed
-    diskName: entredevdisk
-    diskURI: /subscriptions/ce80d183-bf52-4113-8097-6dad78c8fdb0/resourceGroups/MC_k8s-cluster-entre-dev_k8s-cluster_francecentral/providers/Microsoft.Compute/disks/entredevdisk
+    diskName: formationk8sdisk
+    diskURI: /subscriptions/ce80d183-bf52-4113-8097-6dad78c8fdb0/resourceGroups/MC_formation-k8s-cluster_k8s-cluster_francecentral/providers/Microsoft.Compute/disks/formationk8sdisk
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -92,7 +92,7 @@ spec:
 - `kubectl delete pod mongo-with-volume` : Supprimer le pod d'avant pour libérer le disque
 - `kubectl apply -f 4-pod-with-pvc.yaml` : Créer le pod
 - `kubectl exec -it mongo-with-pvc -- mongo` : Executer le client `mongo` à l'intérieur du pod
-- `db.entredev.find({})` : Récupérer tout les éléments de la collection `entredev`
+- `db.formation.find({})` : Récupérer tout les éléments de la collection `formation`
 - Les données sont là. Cela veut dire que le pod c'est bien attaché au PV via un PVC
 
 # Pod avec StorageClass: `7-pod-with-pvc-storage-class.yaml`

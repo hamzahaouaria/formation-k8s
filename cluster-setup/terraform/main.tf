@@ -19,8 +19,8 @@ provider "azurerm" {
 }
 
 # Create a resource group
-resource "azurerm_resource_group" "k8s-cluster-entre-dev" {
-  name     = "k8s-cluster-entre-dev"
+resource "azurerm_resource_group" "formation-k8s-cluster" {
+  name     = "formation-k8s-cluster"
   location = var.location
   tags     = var.tags
 }
