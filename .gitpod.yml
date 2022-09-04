@@ -53,3 +53,8 @@ tasks:
 ports:
   - port: 8080
     onOpen: open-preview
+
+vscode:
+  extensions:
+    - hashicorp.terraform
+    - ms-kubernetes-tools.vscode-kubernetes-tools
