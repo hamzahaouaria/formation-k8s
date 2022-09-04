@@ -6,6 +6,8 @@
 
 # Formation Kubernetes
 
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/AhmedMoalla/formation-k8s)
+
 </div>
 
 # Intro
