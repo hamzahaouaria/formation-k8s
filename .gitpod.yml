@@ -46,7 +46,8 @@ tasks:
       alias k='kubectl'
       complete -F __start_kubectl k" >> ~/.bashrc
       bash -l
-    command: clear; kubectl get nodes; echo 'Initialization Done. 🙂'
+      clear
+    command: kubectl get nodes; echo 'Initialization Done. 🙂'
 
 ports:
   - port: 8080
