@@ -26,6 +26,7 @@ spec:
 
 - Voir le disque azure créé dans la GUI de Azure
 - `kubectl apply -f 1-pod-with-volume.yaml` : Créer le Pod
+- `kubectl describe pod mongo-with-volume`: On remarque que le disque azure est attaché au pod
 - `kubectl exec -it mongo-with-volume -- mongo` : Executer le client `mongo` à l'intérieur du pod
 - `use test;` : Utiliser la base de données par défaut `test`
 - `db.formation.insert({sujet: 'k8s'})` : Insérer des données dans la collection `formation`
@@ -33,7 +34,6 @@ spec:
 - `exit` : Pour sortir de l'invite de commande `mongo`
 - `kubectl delete pod mongo-with-volume` : Supprimer le pod
 - Recréer le pod et refaire les étapes. On remarque que les données ont persisté.
-- Si deux instances de ce pod sont crées, celui qui sera lancé en deuxième ne pourra pas démarrer parce que la première instance mongo crée un fichier lock sur le dossier. On peut voir ça dans les logs de la deuxième instance `kubectl logs mongo-with-volume`
 
 # Pod avec PersistentVolume et PersistentVolumeClaim: `4-pod-with-pvc.yaml`
 
@@ -150,7 +150,7 @@ spec:
 - `kubectl get pvc -w` : Attendre que le provisioner crée les resources nécessaires
 - `kubectl get pv` : Voir qu'un volume a été automatiquement crée et lié à la pvc
 - `kubectl apply -f 7-pod-with-pvc-storage-class.yaml` : Créer le pod
-- `kubectl port-forward kuard-with-pvc-storage-class 80:8080` : Avoir acces au pod en localhost
-- Uploader un fichier sur le file share qui correspond au PVC attaché au pod dans la GUI d'Azure. Dans KUARD, on peut voir le fichier apparaître !
+- `kubectl port-forward kuard-with-pvc-storage-class 8080:8080` : Avoir acces au pod en localhost
+- Uploader un fichier sur le file share qui correspond au PVC attaché au pod dans la GUI d'Azure. Dans le pod de KUARD, on peut voir le fichier apparaître !
 - `kubectl exec -it kuard-with-pvc-storage-class -- sh` : Executer un shell sur le Pod
 - `cd /data && echo "From Pod" > test` : Créer un fichier dans le pod et le voir apparaitre dans le file share dans la GUI d'Azure
