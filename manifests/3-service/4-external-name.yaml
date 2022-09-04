@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-external-name # Nom du service
+spec:
+  type: ExternalName # Type du service
+  externalName: httpbin.org # nom de domaine du service externe
+  ports:
+  - port: 443 # Port du service externe

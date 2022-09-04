@@ -1,0 +1,5 @@
+kubeconfigs
+kube-config.yml
+*.tfstate*
+.terraform*
+kubectl.exe*

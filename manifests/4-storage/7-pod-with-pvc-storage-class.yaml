@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard-with-pvc-storage-class
+spec:
+  volumes:
+    - name: kuard-data
+      persistentVolumeClaim: # PVC à utiliser
+        claimName: pvc-with-storage-class
+  containers:
+    - image: gcr.io/kuar-demo/kuard-amd64:blue
+      name: kuard-with-storage-class
+      volumeMounts: # Définition du point de montage du PVC défini plus haut
+        - name: kuard-data
+          mountPath: /data

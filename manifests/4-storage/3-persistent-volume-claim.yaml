@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc
+spec:
+  accessModes: # Mode d'accès
+    - ReadWriteOnce
+  resources: # Montant de stockage demandé
+    requests:
+      storage: 1Gi
+  storageClassName: "" # StorageClass forcée à vide pour empêcher l'assignation de celle par défaut

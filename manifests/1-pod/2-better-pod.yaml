@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod # Type de la ressource
+metadata:
+  name: kuard-better # Nom du pod
+  labels: # Labels du pod
+    app: kuard-better
+spec:
+  containers:
+  - image: gcr.io/kuar-demo/kuard-amd64:blue # Image de conteneur
+    name: kuard # Nom du conteneur
+    ports:
+    - name: http-port
+      containerPort: 8080 # Port du conteneur
+    resources:
+      requests: # Montant de resources minimum pour executer le pod
+        memory: "100M"
+        cpu: "50m"
+      limits: # Montant de ressources maximum pour executer le pod
+        memory: "150M"
+        cpu: "100m"
+    readinessProbe: # Requête à envoyer pour vérifier que l'application est ready
+      httpGet:
+        path: /ready
+        port: http-port
+      failureThreshold: 3
+      initialDelaySeconds: 3
+      periodSeconds: 5
+    livenessProbe: # Requête à envoyer pour vérifier que l'application est healthy
+      httpGet:
+        path: /healthy
+        port: http-port
+      failureThreshold: 3
+      initialDelaySeconds: 3
+      periodSeconds: 5
+        

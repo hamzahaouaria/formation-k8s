@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod # Type de la ressource
+metadata:
+  name: kuard # Nom du pod
+  labels:  # Labels du pod
+    app: kuard
+spec:
+  containers:
+  - image: gcr.io/kuar-demo/kuard-amd64:blue # Image de conteneur
+    name: kuard # Nom du conteneur
+    ports:
+    - containerPort: 8080 # Port du conteneur

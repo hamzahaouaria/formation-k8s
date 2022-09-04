@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kuard-deploy # Nom du Deployment
+spec:
+  replicas: 3 # Nombre de replicas à maintenir
+  selector:
+    matchLabels:
+      app: kuard # Selecteur utilisé pour se lier aux pods qui respectent la condition
+  template: # Template du pod à créer
+    metadata:
+      labels:
+        app: kuard
+    spec:
+      containers:
+      - name: kuard
+        image: gcr.io/kuar-demo/kuard-amd64:blue
+        # image: gcr.io/kuar-demo/kuard-amd64:purple
+        ports:
+        - containerPort: 8080

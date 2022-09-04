@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kuard-nodeport-service # Nom du service
+spec:
+  type: NodePort # Type du service
+  selector: # Selecteur utilisé pour se lier aux pods qui respectent la condition
+    app: kuard
+  ports:
+  - port: 8888 # Port du service
+    targetPort: 8080 # Port du conteneur cible
+    nodePort: 30123 # Port utilisé par le service sur tout les noeuds
