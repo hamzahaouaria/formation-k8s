@@ -2,6 +2,7 @@ tasks:
   - init: |
       #!/bin/bash
 
+      clear
       # Download And validate checksum of kubectl
       echo -n "Downloading kubectl..."
       curl -LOs "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
@@ -39,6 +40,7 @@ tasks:
       mv $user.kubeconfig ~/.kube/config
       echo "✅"
       # Show nodes
+      clear
       kubectl get nodes
 
       # Auto-Completion and alias in .bashrc
@@ -46,7 +48,6 @@ tasks:
       alias k='kubectl'
       complete -F __start_kubectl k" >> ~/.bashrc
       bash -l
-      clear
     command: kubectl get nodes; echo 'Initialization Done. 🙂'
 
 ports:
