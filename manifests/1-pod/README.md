@@ -23,7 +23,7 @@ spec:
 - `kubectl get pods` : Voir la liste des pods disponible dans le namespace actuel
 - `kubectl describe pod kuard` : Avoir des détails sur le pod
 - `kubectl logs kuard` : Voir les logs du pod
-- `kubectl port-forward kuard 80:8080`: Avoir acces au pod en localhost
+- `kubectl port-forward kuard 8080:8080`: Avoir acces au pod en localhost
 
 # Pod avec des bonnes pratiques: `2-better-pod.yaml`
 
@@ -71,7 +71,7 @@ spec:
 - `kubectl apply -f 2-better-pod.yaml` : Soumettre le manifest pour créer le pod
 - `kubectl get pods` : Voir la liste des pods disponible dans le namespace actuel
 - `kubectl describe pod kuard-better` : Avoir des détails sur le pod (Voir les probes et limits/requests)
-- `kubectl port-forward kuard-better 80:8080`: Avoir acces au pod en localhost
+- `kubectl port-forward kuard-better 8080:8080`: Avoir acces au pod en localhost
 - `kubectl get pods -w` : Avoir la liste des pods en temps réel
 - Faire en sorte que les probes échouent via la GUI de KUARD
 - Au bout d'un moment le pod est redémarré si la liveness probe échoue

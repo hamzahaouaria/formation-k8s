@@ -53,7 +53,7 @@ spec:
 - Dans un autre terminal, executer `kubectl run curl --image=dwdraju/alpine-curl-jq -i --tty --rm` : Crée un pod qui contient un conteneur avec `curl` et `jq` pour faire des requêtes depuis l'interieur du cluster
 - Un service NodePort est aussi accessible en interne via son `targetPort`. On test cela avec `curl -s http://kuard-nodeport-service:8888/env/api | jq | grep HOSTNAME`
 - `kubectl get nodes -o wide` : Lister les noeuds et leurs IP
-- Aller dans le navigateur et tester ceci `http://<ip_de_noeud>:<nodePort_du_service>/env/api`
+- Aller dans le navigateur et tester ceci `http://<ip_de_noeud>:<nodePort_du_service>/env/api`. Ne fonctionnera pas parce que AKS bloque l'accès au noeud depuis l'exterieur du cluster. Faire le test dans un conteneur curl.
 
 # Service LoadBalancer: `3-load-balancer.yaml`
 
