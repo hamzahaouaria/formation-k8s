@@ -1,0 +1,53 @@
+tasks:
+  - init: |
+      #!/bin/bash
+
+      # Download And validate checksum of kubectl
+      echo -n "Downloading kubectl..."
+      curl -LOs "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+      curl -LOs "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+      echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check --quiet
+      if [ $? -ne 0 ]; then
+          echo "Checksum does not match."
+          exit 1
+      fi
+      rm kubectl.sha256
+      chmod +x kubectl
+      install kubectl $HOME/.local/bin
+      rm kubectl
+      echo " Done ✅"
+
+      echo -n "Please provide your Novencia Email: "
+      read email
+      IFS="@"
+      set -- $email
+      if [ "${#@}" -ne 2 ];then
+          echo "Invalid email"
+          exit 1
+      fi
+      if [ "$2" != "novencia.com" ]; then
+          echo "Domain of the email address should be 'novencia.com'"
+          exit 1
+      fi
+      echo "Valid Email ✅"
+
+      # Download Kubeconfig and copy to ~/.kube/config
+      user="$(echo $1 | tr . -)"
+      echo -n "Downloading kubeconfig..."
+      wget -q https://formationk8s.blob.core.windows.net/configs/$user.kubeconfig
+      mkdir -p ~/.kube
+      mv $user.kubeconfig ~/.kube/config
+      echo "✅"
+      # Show nodes
+      kubectl get nodes
+
+      # Auto-Completion and alias in .bashrc
+      echo "source <(kubectl completion bash)
+      alias k='kubectl'
+      complete -F __start_kubectl k" >> ~/.bashrc
+      bash -l
+    command: echo 'Initialization Done. 🙂'
+
+ports:
+  - port: 8080
+    onOpen: open-preview
