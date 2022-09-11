@@ -53,6 +53,8 @@ tasks:
 ports:
   - port: 8080
     onOpen: open-preview
+  - port: 8443
+    onOpen: open-preview
 
 vscode:
   extensions:
