@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard-configmap-env
+spec:
+  containers:
+    - name: kuard-with-env-config
+      image: gcr.io/kuar-demo/kuard-amd64:blue
+      env: # Définition de variables d'environment
+        - name: ANOTHER_PARAM # Nom de la variable d'environment
+          valueFrom: # Source de la valeur de la variable
+            configMapKeyRef:
+              name: simple-configmap # Nom de la configmap
+              key: another-param # Clé de la configmap
+        - name: EXTRA_PARAM
+          valueFrom:
+            configMapKeyRef:
+              name: simple-configmap
+              key: extra-param

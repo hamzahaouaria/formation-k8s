@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard-configmap-cli
+spec:
+  containers:
+    - name: kuard-with-cli-config
+      image: gcr.io/kuar-demo/kuard-amd64:blue
+      command: # Le point d'entrée du conteneur. (Commande finale: /kuard extra-value)
+        - "/kuard"
+        - "$(EXTRA_PARAM)" # Substitution de la valeur de la variable d'environment EXTRA_PARAM
+      env:
+        - name: ANOTHER_PARAM
+          valueFrom:
+            configMapKeyRef:
+              name: simple-configmap
+              key: another-param
+        - name: EXTRA_PARAM
+          valueFrom:
+            configMapKeyRef:
+              name: simple-configmap
+              key: extra-param

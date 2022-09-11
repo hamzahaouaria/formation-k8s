@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kuard-configmap-volume
+spec:
+  containers:
+    - name: kuard-with-volume-config
+      image: gcr.io/kuar-demo/kuard-amd64:blue
+      volumeMounts: # Point de montage des données de la configmap
+        - name: config-volume # Volume à monter
+          mountPath: /config # Chemin de montage
+  volumes:
+    - name: config-volume # Nom du volume
+      configMap:
+        name: simple-configmap # Nom de la configmap
