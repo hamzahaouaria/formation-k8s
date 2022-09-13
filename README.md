@@ -20,7 +20,7 @@ Au cours de cette formation, nous découvrirons l'orchestrateur de conteneurs : 
 
 ## Slides
 
-Retrouvez les slides ici []()
+Retrouvez les slides [ICI](https://novenciagroupe-my.sharepoint.com/:p:/g/personal/ahmed_moalla_novencia_com/ETgXMjxinjVOvxTXrEZXwpgBCUM-JZseKNFSaCRG-f1YCA?e=CYeeVy)
 
 ## Le code
 
@@ -43,3 +43,4 @@ Retrouvez les slides ici []()
 - [Complete Terraform Course - DevOps Directive](https://www.youtube.com/watch?v=7xngnjfIlK4)
 - [API Reference Docs - Kubernetes](https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/)
 - [Demo application for "Kubernetes Up and Running" - Github](https://github.com/kubernetes-up-and-running/kuard)
+- [Kubernetes Documentation](https://kubernetes.io/docs/home/)
