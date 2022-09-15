@@ -47,8 +47,8 @@ spec:
 
 - `kubectl apply -f 2-pod-with-volume-configmap.yaml` : Soumettre le manifest pour créer le pod
 - `kubectl get pods` : Voir la liste des pods disponible dans le namespace actuel
-- `kubectl describe pod kuard-with-volume-config` : Avoir des détails sur le pod (Voir le volume configmap monté)
-- `kubectl port-forward kuard-with-volume-config 8080:8080`: Avoir acces au pod en localhost
+- `kubectl describe pod kuard-configmap-volume` : Avoir des détails sur le pod (Voir le volume configmap monté)
+- `kubectl port-forward kuard-configmap-volume 8080:8080`: Avoir acces au pod en localhost
 - Dans la GUI de Kuard, vérifier dans le système de fichier du conteneur que la configmap est bien montée dans le chemin `/config`
 
 # Pod avec une configmap exposée en variables d'environment: `3-pod-with-env-configmap.yaml`
