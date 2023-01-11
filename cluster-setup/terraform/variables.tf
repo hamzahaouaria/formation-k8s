@@ -15,7 +15,7 @@ variable "tags" {
 variable "kubernetes_version" {
   description = "Kubernetes version of AKS cluster"
   type        = string
-  default     = "1.22.6"
+  default     = "1.25.2"
 }
 
 variable "node_count" {

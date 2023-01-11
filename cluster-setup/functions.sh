@@ -42,6 +42,16 @@ kind: ServiceAccount
 metadata:
   name: $user
   namespace: $namespace
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: $user-token
+  namespace: $namespace
+  annotations:
+    kubernetes.io/service-account.name: $user
+type: kubernetes.io/service-account-token
 
 ---
 kind: Role
@@ -108,10 +118,9 @@ function create_kube_config {
 
   echo "Creating kubeconfig for user: $user"
 
-  name=$(kubectl get sa -n $namespace $user -o jsonpath='{.secrets[0].name}')
-  ca=$(kubectl get secret/$name -n $namespace -o jsonpath='{.data.ca\.crt}')
-  token=$(kubectl get secret/$name -n $namespace -o jsonpath='{.data.token}' | base64 --decode)
-  namespace=$(kubectl get secret/$name -n $namespace -o jsonpath='{.data.namespace}' | base64 --decode)
+  ca=$(kubectl get secret ${user}-token -n $namespace -o jsonpath='{.data.ca\.crt}')
+  token=$(kubectl get secret ${user}-token -n $namespace -o jsonpath='{.data.token}' | base64 --decode)
+  namespace=$(kubectl get secret ${user}-token -n $namespace -o jsonpath='{.data.namespace}' | base64 --decode)
 
   echo "
 apiVersion: v1
@@ -143,7 +152,7 @@ function upload_kube_configs_azure {
 
   echo "Uploading kubeconfigs to Azure to Storage Account: $accountName Under container $containerName"
 
-  az storage blob upload-batch --source kubeconfigs --destination $containerName --account-name $accountName --account-key $accountKey
+  az storage blob upload-batch --source kubeconfigs --destination $containerName --account-name $accountName --account-key $accountKey --overwrite
 
   echo "Uploading Admin kubeconfig to Azure to Storage Account: $accountName Under container $containerName/kube-config.yml"
   az storage blob upload --file kube-config.yml --container-name $containerName --name kube-config.yml --account-name $accountName --account-key $accountKey
