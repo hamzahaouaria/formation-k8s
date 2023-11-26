@@ -46,7 +46,6 @@ tasks:
       sed -i "s#\$USER_DISK_URI#$diskURI#g" /workspace/formation-k8s/manifests/4-storage/1-pod-with-volume.yaml
       sed -i "s#\$USER_DISK_URI#$diskURI#g" /workspace/formation-k8s/manifests/4-storage/2-persistent-volume.yaml
       sed -i "s#\$USER_DISK_URI#$diskURI#g" /workspace/formation-k8s/manifests/4-storage/README.md
-      mv disk-uri-$user /workspace/formation-k8s
 
       # Auto-Completion and alias in .bashrc
       echo "source <(kubectl completion bash)
