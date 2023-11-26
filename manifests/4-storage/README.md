@@ -13,7 +13,7 @@ spec:
       azureDisk: # Définition du Azure Disk distant
         kind: Managed
         diskName: formationk8sdisk
-        diskURI: /subscriptions/ce80d183-bf52-4113-8097-6dad78c8fdb0/resourceGroups/MC_formation-k8s-cluster_k8s-cluster_francecentral/providers/Microsoft.Compute/disks/formationk8sdisk
+        diskURI: $USER_DISK_URI
   containers:
     - image: mongo:3.6
       name: mongodb
@@ -52,7 +52,7 @@ spec:
   azureDisk: # Définition du Azure Disk distant
     kind: Managed
     diskName: formationk8sdisk
-    diskURI: /subscriptions/ce80d183-bf52-4113-8097-6dad78c8fdb0/resourceGroups/MC_formation-k8s-cluster_k8s-cluster_francecentral/providers/Microsoft.Compute/disks/formationk8sdisk
+    diskURI: $USER_DISK_URI
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

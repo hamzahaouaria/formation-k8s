@@ -19,4 +19,4 @@ while IFS= read -r email || [[ -n "$email" ]]; do
   create_kube_config $server $namespace $user ./kubeconfigs
 done <../users.txt
 
-upload_kube_configs_azure
+upload_kube_configs_and_disk_uris_azure

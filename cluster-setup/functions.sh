@@ -2,10 +2,10 @@
 
 function create_cluster {
   # Init providers
-   terraform init
+  terraform init
 
   # Create cluster
-   terraform apply
+  terraform apply -var="users=[$(cat ../users.txt | cut -d@ -f1 | tr . - | sed 's/.*/"&"/' | paste -sd,)]"
 
   # Extract admin kube_config
   terraform output kube_config | head -n-1 | tail -n +2 > kube-config.yml
@@ -16,7 +16,7 @@ function copy_admin_kube_config {
   cp ~/.kube/config ~/.kube/config.bkp
   cp ./kube-config.yml ~/.kube/config
 
-  # Set AKS Cluser as current context
+  # Set AKS Cluster as current context
   kubectl config set-context k8s-cluster
 }
 
@@ -145,15 +145,32 @@ users:
   echo "Kubeconfig generated for user: $user in file $user.kubeconfig"
 }
 
-function upload_kube_configs_azure {
+function upload_kube_configs_and_disk_uris_azure {
   accountName=$(terraform output --raw storage_account_name)
   accountKey=$(terraform output --raw storage_account_key)
   containerName=$(terraform output --raw storage_container_name)
 
   echo "Uploading kubeconfigs to Azure to Storage Account: $accountName Under container $containerName"
-
   az storage blob upload-batch --source kubeconfigs --destination $containerName --account-name $accountName --account-key $accountKey --overwrite
 
   echo "Uploading Admin kubeconfig to Azure to Storage Account: $accountName Under container $containerName/kube-config.yml"
   az storage blob upload --file kube-config.yml --container-name $containerName --name kube-config.yml --account-name $accountName --account-key $accountKey
+
+  generate_disk_uri_files
+  echo "Uploading Disk URI files to Azure to Storage Account: $accountName Under container $containerName"
+  az storage blob upload-batch --source disk-uris --destination $containerName --account-name $accountName --account-key $accountKey --overwrite
+}
+
+# Extract the disk uris generated in terraform and dump them into files
+# Each file will contain the
+function generate_disk_uri_files {
+  diskIds=$(terraform output disk_id | head -n-1 | tail -n +2 | tr -d '"' | tr -d ',')
+  mkdir -p disk-uris
+  for path in $diskIds; do
+      # Extract the name
+      name=$(echo $path | grep -oP '(?<=formationk8sdisk-)[^/]*')
+
+      # Write the path to a new file named "disk-uri-NAME"
+      echo $path > "disk-uris/disk-uri-$name"
+  done
 }

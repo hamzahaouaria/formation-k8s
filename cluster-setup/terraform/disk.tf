@@ -1,5 +1,7 @@
+# Create an azure disk per user
 resource "azurerm_managed_disk" "formation-k8s-disk" {
-  name     = "formationk8sdisk"
+  count = length(var.users)
+  name     = "formationk8sdisk-${var.users[count.index]}"
   location = var.location
   # Need to use node resource group not aks resource group
   # Another resource group is created one for infra resources (net, nodes, ...) and another for aks service
@@ -7,11 +9,11 @@ resource "azurerm_managed_disk" "formation-k8s-disk" {
   resource_group_name  = azurerm_kubernetes_cluster.k8s-cluster.node_resource_group # https://stackoverflow.com/questions/62614458/permissions-error-when-attaching-azure-disk-to-aks-pod
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
-  disk_size_gb         = "2"
+  disk_size_gb         = "1"
 
   tags = var.tags
 }
 
 output "disk_id" {
-  value = azurerm_managed_disk.formation-k8s-disk.id
+  value = azurerm_managed_disk.formation-k8s-disk[*].id
 }

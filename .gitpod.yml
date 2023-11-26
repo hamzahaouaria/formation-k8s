@@ -39,9 +39,14 @@ tasks:
       mkdir -p ~/.kube
       mv $user.kubeconfig ~/.kube/config
       echo "✅"
-      # Show nodes
-      clear
-      kubectl get nodes
+        
+      # Download disk URI file and copy to /workspace/formation-k8s
+      wget -q https://formationk8s.blob.core.windows.net/configs/disk-uri-$user
+      diskURI=$(cat disk-uri-$user)
+      sed -i "s/\$USER_DISK_URI/$diskURI/g" /workspace/formation-k8s/manifests/4-storage/1-pod-with-volume.yaml
+      sed -i "s/\$USER_DISK_URI/$diskURI/g" /workspace/formation-k8s/manifests/4-storage/2-persistent-volume.yaml
+      sed -i "s/\$USER_DISK_URI/$diskURI/g" /workspace/formation-k8s/manifests/4-storage/README.md
+      mv disk-uri-$user /workspace/formation-k8s
 
       # Auto-Completion and alias in .bashrc
       echo "source <(kubectl completion bash)

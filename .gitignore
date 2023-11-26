@@ -1,5 +1,7 @@
 kubeconfigs
+disk-uris
 kube-config.yml
 *.tfstate*
 .terraform*
 kubectl.exe*
+.idea/**
