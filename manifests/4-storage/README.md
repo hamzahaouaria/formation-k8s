@@ -46,7 +46,7 @@ metadata:
   name: azure-disk-pv
 spec:
   capacity:
-    storage: 2Gi # Capacité du volume
+    storage: 1Gi # Capacité du volume
   accessModes: # Mode d'accès
     - ReadWriteOnce
   azureDisk: # Définition du Azure Disk distant
