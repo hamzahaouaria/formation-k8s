@@ -43,9 +43,12 @@ tasks:
       # Download disk URI file and copy to /workspace/formation-k8s
       wget -q https://formationk8s.blob.core.windows.net/configs/disk-uri-$user
       diskURI=$(cat disk-uri-$user)
+      volumeName=$(echo $diskURI | cut -d/ -f9)
       sed -i "s#\$USER_DISK_URI#$diskURI#g" /workspace/formation-k8s/manifests/4-storage/1-pod-with-volume.yaml
       sed -i "s#\$USER_DISK_URI#$diskURI#g" /workspace/formation-k8s/manifests/4-storage/2-persistent-volume.yaml
       sed -i "s#\$USER_DISK_URI#$diskURI#g" /workspace/formation-k8s/manifests/4-storage/README.md
+      sed -i "s#\$USER_VOLUME_NAME#$volumeName#g" /workspace/formation-k8s/manifests/4-storage/3-persistent-volume-claim.yaml
+      sed -i "s#\$USER_VOLUME_NAME#$volumeName#g" /workspace/formation-k8s/manifests/4-storage/README.md
 
       # Auto-Completion and alias in .bashrc
       echo "source <(kubectl completion bash)

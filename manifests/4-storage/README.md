@@ -65,6 +65,7 @@ spec:
     requests:
       storage: 1Gi
   storageClassName: "" # StorageClass forcée à vide pour empêcher l'assignation de celle par défaut
+  volumeName: $USER_VOLUME_NAME # Le PersistentVolume auquel on va lier ce PersistentVolumeClaim
 ---
 apiVersion: v1
 kind: Pod

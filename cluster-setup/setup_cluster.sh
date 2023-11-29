@@ -23,3 +23,4 @@ done <../users.txt
 cp ~/.kube/config.bkp ~/.kube/config
 
 upload_kube_configs_and_disk_uris_azure
+create_persistent_volume_per_user

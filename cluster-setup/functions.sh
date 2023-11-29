@@ -162,15 +162,39 @@ function upload_kube_configs_and_disk_uris_azure {
 }
 
 # Extract the disk uris generated in terraform and dump them into files
-# Each file will contain the
+# Each file will contain the uri of disk of a single user
 function generate_disk_uri_files {
   diskIds=$(terraform output disk_id | head -n-1 | tail -n +2 | tr -d '"' | tr -d ',')
   mkdir -p disk-uris
   for path in $diskIds; do
       # Extract the name
-      name=$(echo $path | grep -oP '(?<=formationk8sdisk-)[^/]*')
+      diskName=$(echo $path | cut -d/ -f9)
+      name=$(echo ${diskName#"formationk8sdisk-"})
 
       # Write the path to a new file named "disk-uri-NAME"
       echo $path > "disk-uris/disk-uri-$name"
+  done
+}
+
+function create_persistent_volume_per_user {
+  for diskUriFile in $(ls disk-uris); do
+    diskUri=$(cat "disk-uris/$diskUriFile")
+    userName=$(echo ${diskUriFile#"disk-uri-"})
+    volumeName=$(echo $diskUri | cut -d/ -f9)
+    cat <<EOF | kubectl --kubeconfig=kube-config.yml apply -f -
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: $volumeName
+spec:
+  capacity:
+    storage: 1Gi # Capacité du volume
+  accessModes: # Mode d'accès
+    - ReadWriteOnce
+  azureDisk: # Définition du Azure Disk distant
+    kind: Managed
+    diskName: $volumeName
+    diskURI: $diskUri
+EOF
   done
 }
